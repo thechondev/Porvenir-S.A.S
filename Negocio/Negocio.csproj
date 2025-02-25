@@ -44,5 +44,11 @@
     <Compile Include="Negocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Datos\Datos.csproj">
+      <Project>{8af4303a-aae7-477d-b29f-f35acce6af68}</Project>
+      <Name>Datos</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
