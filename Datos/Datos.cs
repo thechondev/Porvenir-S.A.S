@@ -21,6 +21,8 @@ namespace Datos
         public string ID_cliente { get; set; }
         public string Nombre_cliente { get; set; }
         public string Numero_cliente { get; set; }
+        public string Numero_beneficiarios { get; set; }
+        public string Valor_totalseguro {get; set;}
 
 
         //Variables para los stream
@@ -30,6 +32,8 @@ namespace Datos
 
         //Almecanar los productos en lista y su forma de recorrer
         List<string> lista_seguros = new System.Collections.Generic.List<string>();
+        List<string> lista_ventas = new System.Collections.Generic.List<string>();
+
 
         //Rutas del archivos
         private string ruta_seguros = @"..\..\recursos\seguros.txt";
@@ -62,7 +66,7 @@ namespace Datos
         }//aqui acaba insertar seguro
 
         //Metodo para listar objetos (servicio#2)
-        public List<String> listado()
+        public List<String> listado_seguros()
         {
             try
             {
@@ -89,10 +93,10 @@ namespace Datos
             }
 
             return lista_seguros;
-        }//aqui acaba lista
+        }//aqui acaba listado de seguros
 
         //Buscar un seguro por su codigo
-        public void buscar(string cod)
+        public void buscar_seguros(string cod)
         {
             try
             {
@@ -140,7 +144,7 @@ namespace Datos
         }//aqui acaba buscar
 
         //Insertar datos de venta
-        public void insertar_venta(string cod, string tip, string val, string por, string val_b)
+        public void insertar_venta(string cod, string tip, string val, string id_c, string nom_c, string num_c, string num_be, string val_t)
         {
             try
             {
@@ -149,7 +153,7 @@ namespace Datos
                 //crear al escritor
                 escritor = new StreamWriter(archivo);
                 //Escribir los datos en el archivo (y establecer su formato)
-                escritor.WriteLine();
+                escritor.WriteLine(id_c + ',' + nom_c + ',' + num_c + ',' + num_be + ',' + cod + ',' + tip + ',' + val_t);
                 //Se cierra al chimoso porque es el que esta manipulando el archivo
                 escritor.Close();
 
@@ -158,10 +162,57 @@ namespace Datos
             }
             catch (IOException ex)
             {
-                mensaje = "ERROR #2" + ex.Message;
+                mensaje = "ERROR #4" + ex.Message;
             }
 
         }//aqui acaba insertar venta
 
+        //Metodo para listar objetos (servicio#2)
+        public List<String> listado_ventas()
+        {
+            try
+            {
+                //Especificando el modo de apertura (lectura)
+                archivo = new FileStream(ruta_ventas, FileMode.Open, FileAccess.Read);
+                //Crear al lector
+                lector = new StreamReader(archivo);
+                //LA VARIABLE LINEA
+                string linea;
+                //Recorrer el archivo
+                while ((linea = lector.ReadLine()) != null)
+                {
+                    lista_ventas.Add(linea);
+                }
+
+                //Se cierra al chimoso porque es el que esta manipulando el archivo
+                lector.Close();
+
+
+            }
+            catch (IOException ex)
+            {
+                mensaje = "ERROR #5" + ex.Message;
+            }
+
+            return lista_ventas;
+        }//aqui acaba listado de seguros
+
+    }
+
+    public class Seguro
+    {
+
+    }
+       
+
+
+    
+
+    public class venta 
+    {
+    
+    
+    
+    
     }
 }
