@@ -35,7 +35,7 @@ namespace Negocio
 
         public void Insertar_ventas(string cod, string tip, string val, string id_c, string nom_c, string num_c, string num_be, string val_t)
         {
-            objeto_CD.insertar_venta(cod, tip, val, id_c,nom_c , num_c, num_be, val_t);
+            objeto_CD.insertar_venta(cod, tip, val, id_c, nom_c, num_c, num_be, val_t);
         }
 
         //listado de seguros
@@ -69,38 +69,6 @@ namespace Negocio
             valor_be = objeto_CD.valor_be;
         }
 
-        public class ventaSevicio
-        {
-            /*
-             * private Venta datosventa = new venta();
-             * 
-             * public venta calularVenta (string ID_cliente, string Nombre_cliente string contacto cliente,
-             * Seguro seguro, int beneficiarios )
-             * {
-             * IncremBenfciario=valorSeguro * (0.10 * cantidadBenefciarios);
-             *  incrementotipo= valorSeguro * porcentaje / 100;
-             *
-             *  valorBenefciario= valorbenefico / cantidadbeneficiario
-             *  totalvalor = valorseguro + IncremBenfciario + incrementotipo +  IncremBenfciario
-             * 
-             * 
-             * 
-             * 
-             * }
-
-
-
-             */
-
-
-        }
-
-        public class seguroServicio
-        { 
-        
-        
-        }
-
-
     }
 }
+

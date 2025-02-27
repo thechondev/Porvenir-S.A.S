@@ -29,6 +29,10 @@ namespace Presentacion
         {
             InitializeComponent();
             cargar_seguros();
+            foreach (var lista in objetoCN.listado_ventas())
+            {
+                lstVentas.Items.Add(lista.Replace(',', ' '));
+            }
         }
 
         CN_Negocio objetoCN = new CN_Negocio();
@@ -36,6 +40,9 @@ namespace Presentacion
 
         public void cargar_seguros()
         {
+            cboseguros.DataSource = null;
+            cboseguros.Items.Clear();
+
             foreach (var lista in objetoCN.listado_seguros())
             {
                 seguro = lista.Split(new char[] {','});
@@ -53,52 +60,110 @@ namespace Presentacion
             cargar_seguros();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
        
         private void cmdBuscarSeg_Click(object sender, EventArgs e)
         {
-            //invocar la funcion de buscar
-            objetoCN.Busqueda_seguros(txtsegurocod.Text);
+            //Revisar si se puede buscar mediante el combobox
+            if (cboseguros.Text != "")
+            {
+                string[] cadena_busqueda = new string[2];
+                cadena_busqueda = cboseguros.Text.Split(new char[] {' '});
+                //invocar la funcion de buscar
+                objetoCN.Busqueda_seguros(cadena_busqueda[0]);
 
-            //mostrar las propiedades en una caja de texto
-            txtsegurocod.Text = objetoCN.codigo.ToString();
-            txtsegurotip.Text = objetoCN.tipo.ToString();
-            txtseguroval.Text = objetoCN.valor.ToString();
-            txtseguropor.Text = objetoCN.porcentaje_in.ToString();
-            txtseguroval_b.Text = objetoCN.valor_be.ToString();
+                //mostrar las propiedades en una caja de texto
+                txtsegurocod.Text = objetoCN.codigo.ToString();
+                txtsegurotip.Text = objetoCN.tipo.ToString();
+                txtseguroval.Text = objetoCN.valor.ToString();
+                txtseguropor.Text = objetoCN.porcentaje_in.ToString();
+                txtseguroval_b.Text = objetoCN.valor_be.ToString();
+
+            }
+            else
+            {
+                try
+                {
+                    //invocar la funcion de buscar
+                    objetoCN.Busqueda_seguros(txtsegurocod.Text);
+
+                    //mostrar las propiedades en una caja de texto
+                    txtsegurocod.Text = objetoCN.codigo.ToString();
+                    txtsegurotip.Text = objetoCN.tipo.ToString();
+                    txtseguroval.Text = objetoCN.valor.ToString();
+                    txtseguropor.Text = objetoCN.porcentaje_in.ToString();
+                    txtseguroval_b.Text = objetoCN.valor_be.ToString();
+                }
+                catch(Exception)
+                {
+                    MessageBox.Show("No se intrudijieron los datos correctamente");
+                }
+                
+            }
+
            
         }
 
         private void cmdVenta_Click(object sender, EventArgs e)
         {
+            //limpiar la listbox
+            lstVentas.DataSource = null;
+            lstVentas.Items.Clear();
+
+            //Se calcula la venta previamente
+            cmdCalcular.PerformClick();
+
+            //Se le entregan las ventas al objeto CN para que luego se guarden envie a CD y al archivo plano
             objetoCN.Insertar_ventas(txtsegurocod.Text, txtsegurotip.Text,txtseguroval.Text,txtIDcliente.Text,
                 txtNombreCliente.Text,txtNumeroCliente.Text,txtNumeroBe.Text,lbltotal.Text);
 
-            MessageBox.Show("Se ha registrado correctamente el producto", "Almacenes Don chucho", MessageBoxButtons.OK);
+            //cargar la venta en la lista.
+            foreach (var lista in objetoCN.listado_ventas())
+            {
+                lstVentas.Items.Add(lista.Replace(',',' '));
+            }
+
+            MessageBox.Show("Se ha registrado correctamente la venta", "Porvenir S.A.S", MessageBoxButtons.OK);
 
             cargar_seguros();
         }
 
         private void cmdCalcular_Click(object sender, EventArgs e)
         {
-            double total_cliente = new int();
+            //se busca previamente el seguro
+            cmdBuscarSeg.PerformClick();
 
-            double incremento = int.Parse(txtseguroval.Text) * double.Parse(txtseguropor.Text)/100;
+            //se calcula el total e incremento
+            try
+            {
 
-            double incremento_beneficiario = int.Parse(txtseguroval_b.Text) / int.Parse(txtNumeroBe.Text);
+                double total_cliente = new int();
 
-            total_cliente = int.Parse(txtseguroval.Text) + incremento + incremento_beneficiario;
+                double incremento = int.Parse(txtseguroval.Text) * (double.Parse(txtseguropor.Text) / 100);
 
-            
+                double incremento_beneficiario = incremento * int.Parse(txtNumeroBe.Text);
+
+                lblvalori.Text = incremento_beneficiario.ToString();
+
+                total_cliente = int.Parse(txtseguroval.Text) + incremento_beneficiario;
+
+                lbltotal.Text = total_cliente.ToString();
+
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show("Ocurrio el error " + error.Message);
+            }
+
+        }
+
+        private void cboseguros_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmdBuscarSeg.PerformClick();
+        }
+        
+        private void cmdSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 

@@ -199,20 +199,4 @@ namespace Datos
 
     }
 
-    public class Seguro
-    {
-
-    }
-       
-
-
-    
-
-    public class venta 
-    {
-    
-    
-    
-    
-    }
 }

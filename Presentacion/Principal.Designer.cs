@@ -36,7 +36,7 @@
             this.txtseguropor = new System.Windows.Forms.TextBox();
             this.txtseguroval_b = new System.Windows.Forms.TextBox();
             this.cboseguros = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.txtIDcliente = new System.Windows.Forms.TextBox();
             this.txtNombreCliente = new System.Windows.Forms.TextBox();
             this.txtNumeroCliente = new System.Windows.Forms.TextBox();
@@ -60,6 +60,10 @@
             this.lbltotal = new System.Windows.Forms.Label();
             this.cmdCalcular = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lstVentas = new System.Windows.Forms.ListBox();
+            this.lblVentas = new System.Windows.Forms.Label();
+            this.lblvalori = new System.Windows.Forms.Label();
+            this.lblFvali = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,17 +123,17 @@
             this.cboseguros.Name = "cboseguros";
             this.cboseguros.Size = new System.Drawing.Size(100, 21);
             this.cboseguros.TabIndex = 6;
+            this.cboseguros.SelectedIndexChanged += new System.EventHandler(this.cboseguros_SelectedIndexChanged);
             // 
-            // label1
+            // lblTitulo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Bahnschrift Condensed", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(159, 33);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "El Porvenir S.A.S";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Bahnschrift Condensed", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(12, 9);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(159, 33);
+            this.lblTitulo.TabIndex = 7;
+            this.lblTitulo.Text = "El Porvenir S.A.S";
             // 
             // txtIDcliente
             // 
@@ -162,6 +166,7 @@
             this.cmdSalir.TabIndex = 11;
             this.cmdSalir.Text = "Salir";
             this.cmdSalir.UseVisualStyleBackColor = true;
+            this.cmdSalir.Click += new System.EventHandler(this.cmdSalir_Click);
             // 
             // lblnombre
             // 
@@ -172,7 +177,6 @@
             this.lblnombre.Size = new System.Drawing.Size(68, 21);
             this.lblnombre.TabIndex = 12;
             this.lblnombre.Text = "Nombre";
-            this.lblnombre.Click += new System.EventHandler(this.label2_Click);
             // 
             // lblDatosCliente
             // 
@@ -269,11 +273,11 @@
             // 
             this.lblValorBeneficio.AutoSize = true;
             this.lblValorBeneficio.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblValorBeneficio.Location = new System.Drawing.Point(242, 266);
+            this.lblValorBeneficio.Location = new System.Drawing.Point(251, 266);
             this.lblValorBeneficio.Name = "lblValorBeneficio";
-            this.lblValorBeneficio.Size = new System.Drawing.Size(82, 21);
+            this.lblValorBeneficio.Size = new System.Drawing.Size(73, 21);
             this.lblValorBeneficio.TabIndex = 22;
-            this.lblValorBeneficio.Text = "Porcentaje";
+            this.lblValorBeneficio.Text = "Beneficio";
             // 
             // lblSeguro_V
             // 
@@ -300,7 +304,7 @@
             // 
             this.lblNumeroBene.AutoSize = true;
             this.lblNumeroBene.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumeroBene.Location = new System.Drawing.Point(7, 225);
+            this.lblNumeroBene.Location = new System.Drawing.Point(7, 226);
             this.lblNumeroBene.Name = "lblNumeroBene";
             this.lblNumeroBene.Size = new System.Drawing.Size(92, 21);
             this.lblNumeroBene.TabIndex = 25;
@@ -312,12 +316,13 @@
             this.txtNumeroBe.Name = "txtNumeroBe";
             this.txtNumeroBe.Size = new System.Drawing.Size(100, 20);
             this.txtNumeroBe.TabIndex = 26;
+            this.txtNumeroBe.Text = "0";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(57, 308);
+            this.label2.Location = new System.Drawing.Point(57, 341);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 21);
             this.label2.TabIndex = 27;
@@ -327,7 +332,7 @@
             // 
             this.lbltotal.AutoSize = true;
             this.lbltotal.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltotal.Location = new System.Drawing.Point(143, 308);
+            this.lbltotal.Location = new System.Drawing.Point(152, 341);
             this.lbltotal.Name = "lbltotal";
             this.lbltotal.Size = new System.Drawing.Size(19, 21);
             this.lbltotal.TabIndex = 28;
@@ -336,7 +341,7 @@
             // cmdCalcular
             // 
             this.cmdCalcular.Font = new System.Drawing.Font("Leelawadee", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdCalcular.Location = new System.Drawing.Point(641, 167);
+            this.cmdCalcular.Location = new System.Drawing.Point(102, 377);
             this.cmdCalcular.Name = "cmdCalcular";
             this.cmdCalcular.Size = new System.Drawing.Size(100, 35);
             this.cmdCalcular.TabIndex = 29;
@@ -355,12 +360,54 @@
             this.pictureBox1.TabIndex = 30;
             this.pictureBox1.TabStop = false;
             // 
+            // lstVentas
+            // 
+            this.lstVentas.FormattingEnabled = true;
+            this.lstVentas.Location = new System.Drawing.Point(766, 33);
+            this.lstVentas.Name = "lstVentas";
+            this.lstVentas.Size = new System.Drawing.Size(421, 342);
+            this.lstVentas.TabIndex = 31;
+            // 
+            // lblVentas
+            // 
+            this.lblVentas.AutoSize = true;
+            this.lblVentas.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVentas.Location = new System.Drawing.Point(762, 7);
+            this.lblVentas.Name = "lblVentas";
+            this.lblVentas.Size = new System.Drawing.Size(123, 21);
+            this.lblVentas.TabIndex = 32;
+            this.lblVentas.Text = "Lista de Ventas";
+            // 
+            // lblvalori
+            // 
+            this.lblvalori.AutoSize = true;
+            this.lblvalori.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblvalori.Location = new System.Drawing.Point(152, 307);
+            this.lblvalori.Name = "lblvalori";
+            this.lblvalori.Size = new System.Drawing.Size(19, 21);
+            this.lblvalori.TabIndex = 34;
+            this.lblvalori.Text = "0";
+            // 
+            // lblFvali
+            // 
+            this.lblFvali.AutoSize = true;
+            this.lblFvali.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFvali.Location = new System.Drawing.Point(7, 307);
+            this.lblFvali.Name = "lblFvali";
+            this.lblFvali.Size = new System.Drawing.Size(129, 21);
+            this.lblFvali.TabIndex = 33;
+            this.lblFvali.Text = "Valor incremento";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGreen;
-            this.ClientSize = new System.Drawing.Size(800, 396);
+            this.ClientSize = new System.Drawing.Size(1230, 463);
+            this.Controls.Add(this.lblvalori);
+            this.Controls.Add(this.lblFvali);
+            this.Controls.Add(this.lblVentas);
+            this.Controls.Add(this.lstVentas);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cmdCalcular);
             this.Controls.Add(this.lbltotal);
@@ -384,7 +431,7 @@
             this.Controls.Add(this.txtNumeroCliente);
             this.Controls.Add(this.txtNombreCliente);
             this.Controls.Add(this.txtIDcliente);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.cboseguros);
             this.Controls.Add(this.txtseguroval_b);
             this.Controls.Add(this.txtseguropor);
@@ -409,7 +456,7 @@
         private System.Windows.Forms.TextBox txtseguropor;
         private System.Windows.Forms.TextBox txtseguroval_b;
         private System.Windows.Forms.ComboBox cboseguros;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.TextBox txtIDcliente;
         private System.Windows.Forms.TextBox txtNombreCliente;
         private System.Windows.Forms.TextBox txtNumeroCliente;
@@ -433,6 +480,10 @@
         private System.Windows.Forms.Label lbltotal;
         private System.Windows.Forms.Button cmdCalcular;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ListBox lstVentas;
+        private System.Windows.Forms.Label lblVentas;
+        private System.Windows.Forms.Label lblvalori;
+        private System.Windows.Forms.Label lblFvali;
     }
 }
 
